@@ -1,0 +1,36 @@
+package de.bogin.test.pieces;
+
+import de.bogin.tenjiku.board.Board
+import de.bogin.tenjiku.board.BoardRepository
+import de.bogin.tenjiku.mcts.ElapsedTimer
+import de.bogin.tenjiku.moves.Move
+import de.bogin.tenjiku.pieces.Piece
+import de.bogin.tenjiku.pieces.PieceRepository
+import de.bogin.tenjiku.pieces.PieceType
+import de.bogin.tenjiku.pieces.PlayerColour
+
+
+public class Pawn_ChessTest {
+    public static void main(String[] args) {
+		BoardRepository boardRepository = new BoardRepository()
+		PieceRepository pieceRepository = new PieceRepository()
+		Board board_55 = boardRepository.getEmptyBoard(5,5)
+		
+		Piece blackPawn = pieceRepository.create(PieceType.PAWN_CHESS,PlayerColour.BLACK)
+		Piece whitePawn = pieceRepository.create(PieceType.PAWN_CHESS,PlayerColour.WHITE)
+		
+		board_55.squares.find{it.x==3 && it.y==3}.piece=blackPawn
+		board_55.squares.find{it.x==4 && it.y==2}.piece=whitePawn
+		
+		PlayerColour colour = PlayerColour.BLACK
+		ElapsedTimer t = new ElapsedTimer();
+		
+		List<Move> moves = board_55.generateMovesFor(PlayerColour.BLACK)
+
+        System.out.println(t);
+
+        System.out.println("Done");
+println moves
+assert moves.size() == 2
+    }
+}
